@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="routingfiltering"
+         name="Routingfiltering"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOA pattern. Messages must be dispatched to various components based on their payload, attributes.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Data" min="1" max="1">
+    <comment>
+      <li>defines the type of messages that must be dispatched.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Category" min="1" max="1">
+    <comment>
+      <li>defines the type of messages that must be dispatched.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+ <role name="FilterSend" min="1" max="1">
+    <comment>
+      
+      <li>Defines the methods implemented by the Filter component.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReceiverSend" min="1" max="1">
+    <comment>
+      <li>Defines the methods implemented by the Receiver component.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="RouterSend" min="1" max="1">
+    <comment>
+      <li>Defines the methods implemented by the Router component.</li>
+    </comment>
+  </role>
+<!-- ====================================================================== -->
+  <role name="Sender" min="1" max="1">
+    <comment>
+      <li>Sender component uses this interface to send the messages to the Receiver components.</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="SenderImpl" min="1" max="1">
+    <comment>
+      <li>Sets the messages and sends the messages to the Filter component.</li>
+    </comment>
+ <dependence roles="Sender RouterSend ReceiverSend FilterSend Data"/>
+  </role>
+<!-- ====================================================================== -->
+  <role name="FilterImpl" min="1" max="1">
+    <comment>
+      <li>the Filter component filters the messages.</li>
+    </comment>
+ <dependence roles="Sender RouterSend ReceiverSend FilterSend Data"/>
+  </role>
+<!-- ====================================================================== -->  <role name="RouterImpl" min="1" max="1">
+    <comment>
+      <li>The Router component routes the messages to the Receiver components.</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+ <role name="ReceiverImpl" min="1" max="n">
+    <comment>
+      <li>The Receiver component receives the messages from the Sender components.</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+</pattern>
+

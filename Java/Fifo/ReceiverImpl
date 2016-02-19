@@ -1,0 +1,19 @@
+@Service(Receiver.class)
+public class ReceiverImpl implements Receiver {
+/** identify the dependency on Fifo service */
+@Reference
+protected FifoDequeue fifodequeue;
+/**
+* Constructor
+*/
+public ReceiverImpl() {
+super();
+}
+public void dequeue(FifoImpl fifo) {
+Object o = fifodequeue.dequeue(fifo);
+doSomething(o);
+}
+private void doSomething(Object o) {
+//TODO write your algoritm here....
+}
+} 

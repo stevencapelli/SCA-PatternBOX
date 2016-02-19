@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso??8859??1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+<templates id="Request??Response" version="1.0">
+<role name="RequestResponseService" type="module"/>
+<import type="STDL/StandardLibrary"/>
+<delimiter type="signature"/>
+<domain name="RequestResponseService"/> <subsetof name="Agent"/>
+<function modifier="out" name="respond">
+<domain>Agent</domain> <codomain>D</codomain>
+</function>
+</role>
+<role name="ClientRequestResponseComponent" type="module"/>
+<comment> <li>//@Required interface</li> </comment>
+<import type="RequestResponseService"/>
+<comment> <li>//@Reference to the agent RequestResponseService</li></comment>
+<function modifier="shared" name="fRequestResponse">
+<domain>Agent</domain> <codomain>RequestResponseService</codomain>
+</function>
+<function modifier="controlled" name="items">
+<domain>Agent</domain> <codomain>D</codomain>
+</function>
+<delimiter type="definitions"/>
+<rule name="r_ClientRequestResponseComponent">
+<body> //Make the request in a synchronous manner by send-receive
+r_wsendreceive[fRequestResponse(self),"r_request(Agent,D)",items(self),result(self)]</body>
+</rule>
+<rule name="r_init">
+<param type="ClientRequestResponseComponent" name="$a" />
+<body> //Complete this rule body for the startup of the component
+status($a) := READY </body>
+</rule>
+</role>
+<role name="ServerComponent" type="module"/>
+<comment> <li>//@Provided interface</li> </comment>
+<import type="RequestResponseService"/>
+<comment> <li>//@Backref to the client agent</li> </comment>
+<function modifier="shared" name="client">
+<domain>Agent</domain> <codomain>Agent</codomain>
+</function>
+<function modifier="controlled" name="params">
+<domain>Agent</domain> <codomain>D</codomain>
+</function>
+<function modifier="controlled" name="response">
+<domain>Agent</domain> <codomain>D</codomain>
+</function>
+<delimiter type="definitions"/>
+<comment> <li>//@Service</li> </comment>
+<rule name="r_request">
+<param type="Agent" name="$a" /> <param type="D" name="$params" />
+<body> skip //Refine this rule body by replacing skip with with your ASM rule scheme </body>
+</rule>
+<rule name="r_ServerComponent">
+<body>
+let($r = nextRequest(self)) //Select the next request (if any)
+in if isDef($r) then
+seq //Handle the request $r
+r_wreceive[client(self),"r_request(Agent,D)",params(self)]
+if (isDef(params(self))) then
+    r_request[self,params(self)] endif
+r_wreply(client(self),"r_request(Agent,D)",response(self))
+endseq
+</body>
+</rule>
+<rule name="r_init">
+<param type="RequestResponseService" name="$a" />
+<body> //Complete this rule body for the startup of the component
+status($a) := READY </body>
+</rule>
+</role>
+</templates>

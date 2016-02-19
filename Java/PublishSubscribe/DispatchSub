@@ -1,0 +1,6 @@
+public interface DispatchSub {
+@OneWay
+public void subscribe(Category category, int b, DispatcherImpl dispatch);
+@OneWay
+public void removeSubscribe(Category category, int b, DispatcherImpl dispatch);
+}

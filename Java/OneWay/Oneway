@@ -1,0 +1,9 @@
+public interface Oneway {
+@OneWay
+/**
+* This method declaration must be implemented by the Receiver
+implementations.
+*/
+public void received(Object item);
+}
+ 

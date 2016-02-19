@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="routingfiltering" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="Data" type="class" modifiers="public">  
+   <field modifiers="private" type="java.lang.Object" name="item"></field>
+<field modifiers="private" type="Category" name="category"></field>
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+<param type="java.lang.Object" name="item"/>
+<param type="Category" name="category"/>
+      <code>
+        this.item=item;
+	this.category=category;
+      </code>
+    </constructor>
+
+ <method modifiers="public" return="java.lang.Object" name="getData">
+      <comment>
+       This method sets the Data
+      </comment>
+	<code>return item;</code>
+ </method>
+<method modifiers="public" return="Category" name="getCategory">
+      <comment>
+       This method sets the Category
+      </comment>
+	<code>return category;</code>
+ </method>
+ </role>
+
+<!-- ====================================================================== -->
+ <role name="Category" type="enum" modifiers="public">  
+   
+ </role>
+
+<!-- ====================================================================== -->
+  <role name="FilterSend" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+
+    <method modifiers="public" return="void" name="send">
+	<comment>
+        This method sends the Data to the Filter Component
+	</comment>	
+<annotation>@OneWay</annotation>
+<param type="$Data$" name="data"/>
+<param type="int" name="i"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReceiverSend" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+
+    <method modifiers="public" return="void" name="send">
+	<annotation>@OneWay</annotation>      	
+	<param type="$Data$" name="data"/>
+    </method>
+
+  </role>
+  <!-- ====================================================================== -->
+ <role name="RouterSend" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+
+    <method modifiers="public" return="void" name="send">
+	<annotation>@OneWay</annotation>      	
+	<param type="$Data$" name="data"/>
+   <param type="int" name="i"/>
+ </method>
+
+  </role>
+  <!-- ====================================================================== -->
+<role name="Sender" type="interface" modifiers="public">
+
+    <method modifiers="public" return="void" name="testing">
+	</method>
+<method modifiers="public" return="void" name="setMessage">
+<param type="$Data$" name="data"/>
+	</method>
+<method modifiers="public" return="void" name="setReceiver">
+<param type="int" name="i"/>
+	</method>
+  </role>
+  <!-- ====================================================================== -->
+  <role name="SenderImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Sender.class)</annotation>     
+<interface type="$Sender$"/>
+
+    <field modifiers="protected" type="FilterSend" name="filterSender">
+	<annotation>@Reference</annotation> 
+    </field>
+<field modifiers="private" type="Data" name="data"></field>
+<field modifiers="private" type="int" name="receiverNumber"></field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="testing">
+     
+      <code>
+	filterSender.send(data,receiverNumber);
+      </code>
+    </method>
+
+    <method modifiers="public" return="void" name="setMessage">
+	<comment>This method set the Message</comment>     
+	<param type="$Data$" name="data"/>
+	<code>
+	this.data=data;
+	</code>
+     </method>
+ <method modifiers="public" return="void" name="setReceiver">
+	<comment>This method set the id of the Receiver </comment>     
+	<param type="int" name="i"/>
+	<code>
+	this.receiverNumber=i;
+	</code>
+     </method>
+  </role>
+ <!-- ====================================================================== -->
+  <role name="FilterImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<import type="java.util.LinkedList"/>
+
+<annotation>@Service(FilterSend.class)</annotation>     
+<interface type="$FilterSend$"/>
+
+    <field modifiers="protected" type="RouterSend" name="routerSend">
+	<annotation>@Reference</annotation> 
+    </field>
+<field modifiers="protected" type="Java.util.LinkedList&lt;Category&gt;" name="blackListCategory" initial="new LinkedList&lt;Category&gt;()"></field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="setBlackList">     
+	<param type="java.util.LinkedList&lt;Category&gt;" name="list" />  
+	<code>
+	//TODO Set the BlackList here....
+      </code>
+    </method>
+
+    <method modifiers="public" return="void" name="send">  
+	 <comment>This method filters the message</comment>
+	<param type="$Data$" name="data"/>
+	<param type="int" name="i"/>
+	<code>
+	if(!verify(data.getCategory()))
+		routerSend.send(data,i);
+	</code>
+     </method>
+ <method modifiers="public" return="void" name="addBlackCategory">
+	<comment>This method adds a new Category into the BlackList </comment>
+	<param type="Category" name="category"/>
+	<code>
+	blackListCategory.add(category);
+	</code>
+     </method>
+<method modifiers="public" return="void" name="removeBlackCategory">
+	<comment>This method removes a Category from the BlackList </comment>
+	<param type="Category" name="category"/>
+	<code>
+	int i =0;
+	for(Category c:blackListCategory)
+	{
+		if(c==category)
+		{
+		blackListCategory.remove(i);
+		break;
+		}
+		i++;
+	}
+	</code>
+     </method>
+
+<method modifiers="private" return="boolean" name="verify">
+	<comment>This method checks if the category is into the blackList </comment>
+	<param type="Category" name="category"/>
+	<code>
+	setBlackList(blackListCategory);
+	for(Category c:blackListCategory)
+	{
+		if(c==category)
+		return true;
+	}
+		return false;
+	</code>
+     </method>
+  </role>
+ <!-- ====================================================================== -->
+
+  <role name="RouterImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(RouterSend.class)</annotation>     
+<interface type="$RouterSend$"/>
+
+    <field modifiers="protected" type="ReceiverSend" name="receiverSend">
+	<annotation>@Reference</annotation> 
+    </field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="send">
+      <param type="$Data$" name="data"/>
+	<param type="int" name="i"/>
+	<code>
+	receiverSend.send(data);
+      </code>
+    </method>
+
+  </role>
+ <!-- ====================================================================== -->
+ <role name="ReceiverImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(ReceiverSend.class)</annotation>     
+<interface type="$ReceiverSend$"/>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="send">
+      <param type="$Data$" name="data"/>
+	<code>
+	doSomething(data);
+      </code>
+    </method>
+<method modifiers="private" return="void" name="doSomething">
+      <param type="$Data$" name="data"/>
+	<code>
+	//TODO Write your algorithm here...
+      </code>
+    </method>
+  </role>
+</templates>

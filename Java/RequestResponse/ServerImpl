@@ -1,0 +1,18 @@
+@Service(Requestresponse.class)
+public class ServerImpl implements Requestresponse {
+/**
+* Default constructor
+*/
+public ServerImpl() {
+super();
+}
+/**
+* This method implements the algorithm operation defined by the
+Requestresponse interface.
+*/
+public Object requestresponse(Object item) {
+// TODO Write your algorithm code here ...
+return item;
+}
+}
+ 

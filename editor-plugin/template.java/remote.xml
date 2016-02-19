@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="remote" version="1.0">
+
+  <!-- ====================================================================== -->
+  <role name="RemoteInteraction" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+	    <annotation>@Remotable</annotation> 
+	<method modifiers="public" return="java.lang.Object" name="remoteServiceOperation">
+	<comment>
+        This method declaration must be implemented by the remote server component.
+      	</comment> 
+	<param type="java.lang.Object" name="item"/>
+    	</method>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ServerRemoteInteraction" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Service(RemoteInteraction.class)</annotation>
+    <interface type="$RemoteInteraction$"/>
+  
+    <constructor modifiers="public">
+      <comment>Default constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+<method modifiers="public" return="java.lang.Object" name="remoteServiceOperation">
+	<param type="java.lang.Object" name="item"/>  
+ <code>
+        doSomething(item);
+	return item;
+      </code>
+	
+    	</method>
+   <method modifiers="public" return="void" name="doSomething">
+	<param type="java.lang.Object" name="item"/>	
+   <code>
+       //TODO write your algorithm here..
+      </code>
+
+    	</method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ClientRemoteInteraction" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Runnable.class)</annotation>
+ <interface type="java.lang.Runnable"/>
+    <field modifiers="protected" type="$Remoteinteraction$" name="remoteInteraction">
+      	<comment>identify the dependency on Server service</comment>
+     	<annotation>@Reference</annotation>
+    </field>
+
+    <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="run">
+      <code>
+	Object item;
+	remoteinteraction.remoteServiceOperation(item);
+      </code>
+    </method>
+
+  </role>
+
+</templates>

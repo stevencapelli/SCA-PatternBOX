@@ -1,0 +1,36 @@
+public}
+class RowList {
+private int subscriberNumber;
+private Category category;
+/**
+* Constructor
+*/
+public RowList(Category category, int subNum) {
+this.subscriberNumber = subNum;
+this.category = category;
+}
+/**
+* This method gets the subscriber's number
+*/
+public int getSubscriber() {
+return subscriberNumber;
+}
+/**
+* This method gets the Category
+*/
+public Category getCategory() {
+return category;
+}
+/**
+* This method sets the Category
+*/
+public void setCategory(Category category) {
+this.category = category;
+}
+/**
+* This method sets the subscriber's number
+*/
+public void setSubscriber(int subscriber) {
+this.subscriberNumber = subscriber;
+}
+} 

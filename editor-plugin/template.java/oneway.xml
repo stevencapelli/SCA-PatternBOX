@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="oneway" version="1.0">
+
+  <!-- ====================================================================== -->
+  <role name="Oneway" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+	    
+	<method modifiers="public" return="void" name="received">
+		<comment>
+        This method declaration must be implemented by the Receiver 	implementations.
+      		</comment> 		
+		<annotation>@OneWay</annotation> 
+		<param type="java.lang.Object" name="item"/>
+    	</method>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReceiverImpl" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Service(Oneway.class)</annotation>
+    <interface type="$Oneway$"/>
+  
+    <constructor modifiers="public">
+      <comment>Default constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="received">
+
+      <comment>
+        This method implements the service operation declared in the Oneway interface.
+      </comment>
+	<param type="java.lang.Object" name="item"/>
+      <code>
+	dosomething(item);
+        // TODO Write your algorithm code here ...
+      </code>
+    </method>
+
+ <method modifiers="private" return="void" name="dosomething">
+
+      	<param type="java.lang.Object" name="item"/>
+      <code>
+	 // TODO Write your algorithm code here ...
+      </code>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Senderimpl" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Runnable.class)</annotation>
+ <interface type="java.lang.Runnable"/>
+    <field modifiers="protected" type="$Oneway$" name="fOneway">
+      	<comment>identify the dependency on Oneway service</comment>
+     	<annotation>@Reference</annotation>
+    </field>
+
+    <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <param type="$Oneway$" name="oneway" />
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="run">
+      <code>
+	Object item;
+	fOneway.received(item);
+      </code>
+    </method>
+
+  </role>
+
+</templates>

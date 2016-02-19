@@ -1,0 +1,6 @@
+public interface Sender {
+/**
+* This method declaration allows to run the Pattern
+*/
+public void run();
+} 

@@ -1,0 +1,21 @@
+@Service(Publisher.class)
+public class PublisherImpl implements Publisher {
+@Reference
+protected DispatchPub dispatch;
+private Data data;
+/**
+* Constructor
+*/
+public PublisherImpl() {
+super();
+}
+public void run(Data data, DispatcherImpl d) {
+dispatch.send(data, d);
+}
+/**
+* This method sets the Message
+*/
+public void setMessage(Data data) {
+this.data = data;
+}
+} 

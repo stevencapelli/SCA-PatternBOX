@@ -1,0 +1,27 @@
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="heartbeat" name="Heartbeat" topCategorie="SCA">
+<comment> One sender component sends a heart beat message to a receiver periodically.
+The aliveness of the sender is checked by the receiver regularly every specified time interval.
+If the heartbeat message is not received within a certain maximum waiting, the sender is
+considered to be unavailable.
+</comment>
+<role name="HeartbeatService" min="1" max="1" type="Interface" operation="imAlive">
+<comment>
+<li>Defines an interface for the heart beat sending service.</li>
+</comment>
+<role name="HeartbeatSender" min="1" max="1" type="Component" property= "timeInterval">
+<comment> 
+<li>Maintains a reference to one or more Receiver services.</li>
+<li>Sends an heartbeat message to a Receiver component. </li> 
+</comment>
+<dependence role="HeartBeatService" type="required"/>
+</role>
+<role name="HeartbeatReceiver" min="1" max="1" type="Component" property= "timeInterval maxWaitingTime">
+<comment> 
+<li>Maintains a reference to a Sender service.</li>
+<li>Receives an heart beat from a sender periodically.</li>
+</comment>
+<dependence role="HeartbeatService" type="provided"/>
+</role>
+</role>
+</pattern>

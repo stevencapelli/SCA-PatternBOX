@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="publishsubscribe"
+         name="Publishsubscribe"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOA pattern. A mechanism for routing messages to consumers in response to specific events in the SOA or triggered by specific applications running in the SOA.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Data" min="1" max="1">
+    <comment>
+      <li>defines the type of messages that must be dispatched.</li>
+    </comment>
+<dependence roles="Category"/>  
+</role>
+
+  <!-- ====================================================================== -->
+  <role name="Category" min="1" max="1">
+    <comment>
+      <li>defines the type of messages that must be dispatched.</li>
+    </comment>
+
+  </role>
+
+  <!-- ====================================================================== -->
+ <role name="Publisher" min="1" max="1">
+    <comment>
+      
+      <li>Defines the methods implemented by the Publisher component.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="DispatchPub" min="1" max="1">
+    <comment>
+      <li>Defines the methods implemented by the Dispatch component and offered to the Publisher component.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="DispatchSub" min="1" max="1">
+    <comment>
+      <li>Defines the methods implemented by the Dispatch component and offered to the Subscriber component.</li>
+    </comment>
+  </role>
+<!-- ====================================================================== -->
+  <role name="SubscriberCommunicate" min="1" max="1">
+    <comment>
+      <li>Defines the methods implemented by the Subscriber component.</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="RowList" min="1" max="1">
+    <comment>
+      <li>Defines the structure of the Dispatch.</li>
+    </comment>
+ <dependence roles="Data Category DispatchSub DispatchPub SubscriberCommunicate Publisher"/>
+  </role>
+<!-- ====================================================================== -->
+  <role name="PublisherImpl" min="1" max="1">
+    <comment>
+      <li>the Publischer component send the messages.</li>
+    </comment>
+<dependence roles="Data Category DispatchSub DispatchPub SubscriberCommunicate Publisher"/>
+  </role>
+<!-- ====================================================================== -->  
+<role name="DispatcherImpl" min="1" max="1">
+    <comment>
+      <li>The Dispatcher component dispatches the messages to the Subscriber components.</li>
+    </comment>
+<dependence roles="Data Category DispatchSub DispatchPub SubscriberCommunicate Publisher"/>
+  </role>
+<!-- ====================================================================== -->
+ <role name="SubscriberImpl" min="1" max="n">
+    <comment>
+      <li>The Subscriber component receives the messages from the Publisher component.</li>
+    </comment>
+<dependence roles="Data Category DispatchSub DispatchPub SubscriberCommunicate Publisher"/>
+  </role>
+
+</pattern>
+

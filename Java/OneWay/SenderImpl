@@ -1,0 +1,16 @@
+@Service(Runnable.class)
+public class Senderimpl implements Runnable {
+/** identify the dependency on Oneway service */
+@Reference
+protected Oneway fOneway;
+/**
+* Constructor
+*/
+public Senderimpl(Oneway oneway) {
+super();
+}
+public void run() {
+Object item;
+fOneway.received(item);
+}
+ 

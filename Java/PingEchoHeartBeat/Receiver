@@ -1,0 +1,7 @@
+public interface Receiver {
+/**
+* This method receives a request and returns the timestamp of the request.
+* Furthermore it verifies whether Serder is alive.
+*/
+public long request(Object item);
+} 

@@ -1,0 +1,19 @@
+@Service(Receiver.class)
+public class SenderImpl implements Sender {
+@Reference
+protected Receiver receiver;
+/**
+* Constructor
+*/
+public SenderImpl() {
+super();
+}
+public long request(Object items) {
+  doSomething(items);
+  long time=Calendar.getInstance().getTimeInMillis();
+  return time;
+}
+private void doSomething(Object items) {
+//TODO Write your algorithm here....
+}
+} 

@@ -1,0 +1,53 @@
+@Service(FilterSend.class)
+public class FilterImpl implements FilterSend {
+@Reference
+protected RouterSend routerSend;
+protected LinkedList<Category> blackListCategory = new
+LinkedList<Category>();
+/**
+* Constructor
+*/
+public FilterImpl() {
+super();
+}
+public void setBlackList(LinkedList<Category> list) {
+//TODO Set the BlackList here....
+}
+/**
+* This method filters the message
+*/
+public void send(Data data, int i) {
+if (!verify(data.getCategory()))
+routerSend.send(data, i);
+}
+/**
+* This method adds a new Category into the BlackList
+*/
+public void addBlackCategory(Category category) {
+blackListCategory.add(category);
+}
+/**
+* This method removes a Category from the BlackList
+*/
+public void removeBlackCategory(Category category) {
+int i = 0;
+for (Category c : blackListCategory) {
+if (c == category) {
+blackListCategory.remove(i);
+break;
+}
+i++;
+}
+}
+/**
+* This method checks if the category is into the blackList
+*/
+private boolean verify(Category category) {
+setBlackList(blackListCategory);
+for (Category c : blackListCategory) {
+if (c == category)
+return true;
+}
+return false;
+}
+}

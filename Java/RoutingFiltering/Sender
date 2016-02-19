@@ -1,0 +1,6 @@
+public interface Sender {
+public void testing();
+public void setMessage(Data data);
+public void setReceiver(int i);
+}
+ 

@@ -1,0 +1,8 @@
+public interface Publisher {
+/**
+* This method sends the Data to the Publish Component
+*/
+public void run(Data data, DispatcherImpl dispatch);
+public void setMessage(Data data);
+}
+ 

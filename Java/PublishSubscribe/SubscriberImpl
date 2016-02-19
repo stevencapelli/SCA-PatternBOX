@@ -1,0 +1,24 @@
+@Service(SubscriberCommunicate.class)
+public class SubscriberImpl implements SubscriberCommunicate {
+@Reference
+protected DispatchSub dispatchSub;
+/**
+* Constructor
+*/
+public SubscriberImpl() {
+super();
+}
+public void communicate(Data data) {
+doSomething(data);
+}
+public void doSomething(Data data) {
+//TODO Write your algorithm here...
+}
+public void subscribe(Category category, int subscriberNum, DispatcherImpl dispatcher) {
+dispatchSub.subscribe(category, subscriberNum, dispatcher);
+}
+public void removeSubscribe(Category category, int subscriberNum, DispatcherImpl dispatcher) {
+dispatchSub.removeSubscribe(category, subscriberNum, dispatcher);
+}
+}
+ 

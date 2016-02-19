@@ -1,0 +1,16 @@
+@Service(Runnable.class)
+public class ClientRemoteInteraction implements Runnable {
+/** identify the dependency on Server service */
+@Reference
+protected Remoteinteraction remoteInteraction;
+/**
+* Constructor
+*/
+public ClientRemoteInteraction() {
+super();
+}
+public void run() {
+Object item;
+remoteinteraction.remoteServiceOperation(item);
+}
+}

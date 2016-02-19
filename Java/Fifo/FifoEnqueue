@@ -1,0 +1,7 @@
+public interface FifoEnqueue {
+@OneWay
+/**
+* This method enqueues an object into the fifo.
+*/
+public void enqueue(Object item, FifoImpl fifo);
+} 

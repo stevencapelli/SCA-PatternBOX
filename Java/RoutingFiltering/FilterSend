@@ -1,0 +1,8 @@
+public interface FilterSend {
+@OneWay
+/**
+* This method sends the Data to the Filter Component
+*/
+public void send(Data data, int i);
+}
+ 

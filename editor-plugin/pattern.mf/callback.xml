@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="callback"
+         name="Callback"
+         topCategorie="SCA"
+         subCategorie="Micro Pattern">
+
+  <comment>
+   Micropattern. A forward message from calling to called component instigates a call from the called component back to the calling component at some point in the future. This is referred to as the callback direction. When no callback is configured, messages travel in the forward direction only.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="ForwardInterface" min="1" max="1">
+    <comment>
+      <li>define the forward interface</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ServerImpl" min="1" max="1">
+    <comment>
+      
+      <li>implements the forward interface and uses the callback interface to notify the result back to the client.</li>
+<li>maintains a reference (the callback proxy) to point back to the client component.</li>
+    </comment>
+    <dependence roles="ForwardInterface InterfaceCallback" />
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="InterfaceCallback" min="1" max="1">
+    <comment>
+      <li>defines the Callback interface.</li>
+    </comment>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ClientCallbackImpl" min="1" max="1">
+    <comment>
+      <li>maintains a reference to a Forward service type.</li>
+  <li>implements the callback interface.</li>
+    </comment>
+    <dependence roles="InterfaceCallback ForwardInterface" />
+  </role>
+
+</pattern>

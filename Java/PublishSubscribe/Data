@@ -1,0 +1,23 @@
+public class Data {
+private Object item;
+private Category category;
+/**
+* Constructor
+*/
+public Data(Object item, Category category) {
+this.item = item;
+this.category = category;
+}
+/**
+* This method sets the Data
+*/
+public Object getData() {
+return item;
+}
+/**
+* This method sets the Category
+*/
+public Category getCategory() {
+return category;
+}
+} 

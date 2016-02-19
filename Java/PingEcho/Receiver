@@ -1,0 +1,7 @@
+public interface Receiver {
+/**
+* This method receives a request and returns the
+timestamp of the request.
+*/
+public long request(Object item);
+} 

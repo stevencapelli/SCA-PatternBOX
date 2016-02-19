@@ -1,0 +1,16 @@
+@Service(ReceiverSend.class)
+public class ReceiverImpl implements ReceiverSend {
+/**
+* Constructor
+*/
+public ReceiverImpl() {
+super();
+}
+public void send(Data data) {
+doSomething(data);
+}
+private void doSomething(Data data) {
+//TODO Write your alghoritm here...
+}
+}
+ 

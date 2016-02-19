@@ -1,0 +1,9 @@
+public interface Replicator {
+@OneWay
+/**
+* This method adds the items into a list and replicates them
+to all clients.
+*/
+public void receiver(Object item);
+}
+ 

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="fifo" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="Sender" type="interface" modifiers="public">
+   
+ <method modifiers="public" return="void" name="enqueue">
+      <comment>
+       This method must be implemented by the Sender component.
+      </comment>
+
+<param type="java.lang.Object" name="item"/>
+<param type="FifoImpl" name="fifo"/>
+    </method>
+
+  
+ </role>
+
+<!-- ====================================================================== -->
+ <role name="Receiver" type="interface" modifiers="public">
+ <method modifiers="public" return="void" name="dequeue">
+      <comment>
+       This method must be implemented by the Receiver component.
+      </comment>
+<param type="FifoImpl" name="fifo"/>
+    </method>
+ </role>
+
+<!-- ====================================================================== -->
+  <role name="FifoEnqueue" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+    <method modifiers="public" return="void" name="enqueue">
+      <comment>
+        This method enqueues an object into the fifo.
+      </comment>
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="item"/>
+<param type="FifoImpl" name="fifo"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="FifoDequeue" type="interface" modifiers="public">
+
+    <method modifiers="public" return="java.lang.Object" name="dequeue">
+      <comment>
+        This method dequeues an object from the fifo.
+      </comment>
+<param type="FifoImpl" name="fifo"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+ <role name="SenderImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Sender.class)</annotation> 
+    <interface type="$Sender$"/>
+
+    <field modifiers="protected" type="$FifoEnqueue$" name="fifoenqueue">
+      <comment>
+        identify the dependency on Fifo service
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="enqueue">
+      
+	<param type="java.lang.Object" name="item"/>
+<param type="FifoImpl" name="fifo"/>
+      <code>
+	fifoenqueue.enqueue(item, fifo);
+      </code>
+    </method>
+   </role>
+
+  <!-- ====================================================================== -->
+  <role name="FifoImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+  <import type="java.util.LinkedList"/>
+<annotation>@Service(interfaces={FifoEnqueue.class, FifoDequeue.class})</annotation>   
+<interface type="$FifoEnqueue$"/>
+ <interface type="$FifoDequeue$"/>
+    <field modifiers="private" type="java.util.LinkedList&lt;Object&gt;" name="queue">
+    </field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+       queue=new LinkedList&lt;Object&gt;();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="enqueue">
+     <param type="java.lang.Object" name="item"/>
+	<param type="FifoImpl" name="fifo"/>
+      <code>
+	fifo.queue.add(item);
+      </code>
+    </method>
+
+    <method modifiers="public" return="java.lang.Object" name="dequeue">
+<param type="FifoImpl" name="fifo"/>
+	<code>
+		Object o;
+		if (!fifo.queue.isEmpty()) 
+			o = fifo.queue.remove();
+		return o;
+	</code>
+     </method>
+  </role>
+  <!-- ====================================================================== -->
+ <role name="ReceiverImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Receiver.class)</annotation> 
+    <interface type="$Receiver$"/>
+
+    <field modifiers="protected" type="$FifoDequeue$" name="fifodequeue">
+      <comment>
+        identify the dependency on Fifo service
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="dequeue">
+<param type="FifoImpl" name="fifo"/>
+      <code>
+	Object o=fifodequeue.dequeue(fifo);
+		doSomething(o);
+      </code>
+    </method>
+
+ <method modifiers="private" return="void" name="doSomething">
+<param type="java.lang.Object" name="o"/>
+      <code>
+	//TODO write your algoritm here....
+      </code>
+    </method>
+   </role>
+</templates>

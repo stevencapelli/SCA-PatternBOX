@@ -1,0 +1,28 @@
+@Service(Sender.class)
+public class SenderImpl implements Sender {
+@Reference
+protected FilterSend filterSender;
+private Data data;
+private int receiverNumber;
+/**
+* Constructor
+*/
+public SenderImpl() {
+super();
+}
+public void testing() {
+filterSender.send(data, receiverNumber);
+}
+/**
+* This method set the Message
+*/
+public void setMessage(Data data) {
+this.data = data;
+}
+/**
+* This method set the id of the Receiver
+*/
+public void setReceiver(int i) {
+this.receiverNumber = i;
+}
+}

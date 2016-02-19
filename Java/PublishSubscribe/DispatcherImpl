@@ -1,0 +1,40 @@
+@Service(interfaces = { DispatchPub.class, DispatchSub.class })
+public class DispatcherImpl implements DispatchPub, DispatchSub {
+@Reference
+private SubscriberCommunicate[] listSubscriber;
+private LinkedList<RowList> table;
+/**
+* Constructor
+*/
+public DispatcherImpl() {
+table = new LinkedList<RowList>();
+}
+public void subscribe(Category category, int b, DispatcherImpl dispatch) {
+RowList row = new RowList(category, b);
+dispatch.table.add(row);
+}
+public void send(Data data, DispatcherImpl dispatch) {
+Category dataCategory = data.getCategory();
+for (RowList row : dispatch.table) {
+if (row.getCategory() == dataCategory) {
+int i = row.getSubscriber();
+listSubscriber[i].communicate(data);
+}
+}
+}
+/**
+* This method removes a Subscriber from the list
+*/
+public void removeSubscribe(Category category, int b,DispatcherImpl dispatch) {
+int cont = 0;
+for (RowList row : dispatch.table) {
+if ((row.getCategory() == category) &&
+(row.getSubscriber() == b)) {
+dispatch.table.remove(cont);
+break;
+}
+cont++;
+}
+}
+}
+ 

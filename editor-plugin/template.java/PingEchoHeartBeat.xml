@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="pingechoheartbeat" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="Sender" type="interface" modifiers="public">
+   
+ <method modifiers="public" return="void" name="run">
+      <comment>
+       This method declaration allows to run the Pattern and verifies that the Receiver is reachable.
+      </comment>
+    </method>
+</role>
+
+<!-- ====================================================================== -->
+  <role name="Receiver" type="interface" modifiers="public">
+
+    <method modifiers="public" return="long" name="request">
+      <comment>
+        This method receives a request and returns the timestamp of the request.
+        Furthermore it verifies whether Serder is alive.
+      </comment>
+<param type="java.lang.Object" name="item"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="SenderImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<import type="java.util.Calendar"/>
+<annotation>@Service(Sender.class)</annotation> 
+    <interface type="$Sender$"/>
+
+    <field modifiers="protected" type="$Receiver$" name="receiver">
+      <comment>
+        identify the dependency on Receiver's service
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="run">
+      <code>
+  doSomething(items);      
+	long time=Calendar.getInstance().getTimeInMillis();
+  long beatTime=Calendar.getInstance().getTimeInMillis();
+	long timeReturn=Calendar.getInstance().getTimeInMillis();
+  return beatTime;
+	//TODO Write your algorithm here...      
+	</code>
+    </method>
+    <method modifiers="private" return="void" name="doSomething">
+     <param type="java.lang.Object" name="items"/>
+      <code>
+  //TODO Write your algorithm here....
+      </code>
+    </method>
+</role>
+
+  
+  <!-- ====================================================================== -->
+  <role name="ReceiverImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<import type="java.util.Calendar"/>
+ <annotation>@Service(Receiver.class)</annotation> 
+    <interface type="$Receiver$"/>
+   
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+   <method modifiers="public" return="long" name="request">
+     <param type="java.lang.Object" name="items"/>
+      <code>
+	doSomething(items);
+  long maxWaitingTime;
+  long beatTime=Calendar.getInstance().getTimeInMillis();
+	long time=Calendar.getInstance().getTimeInMillis();
+	return time;
+      </code>
+    </method>
+<method modifiers="private" return="void" name="doSomething">
+     <param type="java.lang.Object" name="items"/>
+      <code>
+	//TODO Write your algorithm here....
+      </code>
+    </method>
+</role>
+</templates>

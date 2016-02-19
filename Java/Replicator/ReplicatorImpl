@@ -1,0 +1,19 @@
+@Service(Replicator.class)
+public class ReplicatorImpl implements Replicator {
+@Reference
+protected Client client;
+/**
+* Constructor
+*/
+public ReplicatorImpl() {
+super();
+}
+/**
+* This method sends message to all clients
+*/
+public void receiver(Object item) {
+for (int i = 0; i > client.length; i++)
+client[i].receiver(item);
+}
+}
+ 

@@ -1,0 +1,8 @@
+public interface Requestresponse {
+/**
+* This method declaration must be implemented by the
+Server implementations.
+*/
+public Object requestresponse(Object item);
+}
+ 

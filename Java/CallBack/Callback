@@ -1,0 +1,10 @@
+@Callback(InterfaceCallback.class)
+public interface Callback {
+@OneWay
+/**
+* This method declaration must be implemented by the Server
+implementations.
+*/
+public void callbackAsynch(Object item);
+}
+ 

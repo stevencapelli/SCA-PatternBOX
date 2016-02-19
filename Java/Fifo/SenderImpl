@@ -1,0 +1,15 @@
+@Service(Sender.class)
+public class SenderImpl implements Sender {
+/** identify the dependency on Fifo service */
+@Reference
+protected FifoEnqueue fifoenqueue;
+/**
+* Constructor
+*/
+public SenderImpl() {
+super();
+}
+public void enqueue(Object item, FifoImpl fifo) {
+fifoenqueue.enqueue(item, fifo);
+}
+} 

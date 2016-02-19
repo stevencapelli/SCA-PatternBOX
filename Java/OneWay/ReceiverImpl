@@ -1,0 +1,20 @@
+@Service(Oneway.class)
+public class ReceiverImpl implements Oneway {
+/**
+* Default constructor
+*/
+public ReceiverImpl() {
+super();
+}
+/**
+* This method implements the algorithm operation defined by the
+Oneway interface.
+*/
+public void received(Object item) {
+dosomething(item);
+// TODO Write your algorithm code here ...
+}
+private void dosomething(Object item) {
+// TODO Write your algorithm code here ...
+}
+} 

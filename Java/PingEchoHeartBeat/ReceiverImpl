@@ -1,0 +1,19 @@
+@Service(Receiver.class)
+public class ReceiverImpl implements Receiver {
+/**
+* Constructor
+*/
+public ReceiverImpl() {
+super();
+}
+public long request(Object items) {
+doSomething(items);
+  long maxWaitingTime;
+  long beatTime=Calendar.getInstance().getTimeInMillis();
+  long time=Calendar.getInstance().getTimeInMillis();
+  return time;
+}
+private void doSomething(Object items) {
+//TODO Write your algorithm here....
+}
+} 

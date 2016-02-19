@@ -1,0 +1,6 @@
+public interface SubscriberCommunicate {
+@OneWay
+void communicate(Data data);
+public void subscribe(Category category, int subscriberNum, DispatcherImpl dispatcher);
+public void removeSubscriber(Category category, int subscriberNum,DispatcherImpl dispatcher);
+} 

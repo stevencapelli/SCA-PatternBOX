@@ -1,0 +1,8 @@
+public interface Message {
+/**
+* This method declaration must be implemented by the Message
+Component.
+*/
+public void sendMessage(Object item);
+}
+ 

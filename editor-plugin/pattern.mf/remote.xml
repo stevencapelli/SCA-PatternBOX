@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="remote"
+         name="Remote"
+         topCategorie="SCA"
+         subCategorie="Micro Pattern">
+
+  <comment>
+   Micropattern. This interaction pattern allows SCA components to communicate with other remote SCA components or non-SCA software using pass-by-value-semantics.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="RemoteInteraction" min="1" max="1">
+    <comment>
+      <li>declares an interface offering services provided by a remote component.</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ServerRemoteInteraction" min="1" max="1">
+    <comment>
+      <li>implements the services by providing the remote interface.</li>
+    </comment>
+    <dependence roles="RemoteInteraction" />
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ClientRemoteInteraction" min="1" max="1">
+    <comment>
+      <li>maintains a reference to a Remote service type.</li>
+      <li>calls a service of a remote server component.</li>
+    </comment>
+    <dependence roles="RemoteInteraction" />
+  </role>
+
+</pattern>

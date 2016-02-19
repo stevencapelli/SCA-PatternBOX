@@ -1,0 +1,9 @@
+public interface Client {
+@OneWay
+/**
+* This method adds the items into a list and replicates them
+to the clients.
+*/
+public void receiver(Object item);
+}
+ 

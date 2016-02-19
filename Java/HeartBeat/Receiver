@@ -1,0 +1,6 @@
+public interface Receiver {
+/**
+* This method receives a request and verifies whether Sender is alive.
+*/
+public long request(Object item);
+} 

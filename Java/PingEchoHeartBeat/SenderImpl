@@ -1,0 +1,24 @@
+@Service(Sender.class)
+public class SenderImpl implements Sender {
+/** identify the dependency on Receiver's service */
+@Reference
+protected Receiver receiver;
+/**
+* Constructor
+*/
+public SenderImpl() {
+super();
+}
+public void run() {
+  doSomething(items);      
+  long time=Calendar.getInstance().getTimeInMillis();
+  long beatTime=Calendar.getInstance().getTimeInMillis();
+  long timeReturn=Calendar.getInstance().getTimeInMillis();
+  return beatTime;
+  //TODO Write your algorithm here...
+}
+private void doSomething(Object items) {
+  //TODO Write your algorithm here....
+}
+}
+ 

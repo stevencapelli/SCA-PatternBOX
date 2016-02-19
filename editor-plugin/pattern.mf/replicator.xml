@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="replicator"
+         name="Replicator"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOA pattern. Messages or payloads must be replicated across multiple endpoints with identical configurations.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Message" min="1" max="1">
+    <comment>
+      <li>declares an interface common to all supported algorithms. Message component uses this interface to send a message to the client </li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="MessageImpl" min="1" max="1">
+    <comment>
+      
+      <li>implements the algorithm using the Message interface.</li>
+    </comment>
+     <dependence roles="Message Replicator Client" />
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Replicator" min="1" max="1">
+    <comment>
+      <li>the interface through which the service will perform the replicator</li>
+    </comment>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReplicatorImpl" min="1" max="1">
+    <comment>
+      <li>The component Replicator replicate the message to the clients</li>
+    </comment>
+ <dependence roles="Message Replicator Client" />
+  </role>
+<!-- ====================================================================== -->
+  <role name="Client" min="1" max="1">
+    <comment>
+      <li>Client components use this interface</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="ClientImpl" min="1" max="n">
+    <comment>
+      <li>Implements the algorithm using the Client interface</li>
+    </comment>
+ <dependence roles="Message Replicator Client"/>
+  </role>
+
+</pattern>
+

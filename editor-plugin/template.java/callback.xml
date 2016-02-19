@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="callback" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="ForwardInterface" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Callback(InterfaceCallback.class)</annotation>  
+   
+ <method modifiers="public" return="void" name="callbackAsynch">
+      <comment>
+       This method declaration must be implemented by the Server implementations.
+      </comment>
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="item"/>
+    </method>
+
+  
+ </role>
+
+<!-- ====================================================================== -->
+  <role name="InterfaceCallback" type="interface" modifiers="public">
+
+    <method modifiers="public" return="void" name="callbackResults">
+      <comment>
+        This method notify back the results to the client.
+      </comment>
+<param type="java.lang.Object" name="item"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ServerImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(ForwardInterface.class)</annotation> 
+    <interface type="$ForwardInterface$"/>
+
+    <field modifiers="protected" type="$InterfaceCallback$" name="fInterfaceCallback">
+      <comment>
+        identify the callback proxy
+      </comment>
+ <annotation>@Callback</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="callbackAsynch">
+      
+	<param type="java.lang.Object" name="item"/>
+      <code>
+	Object itemResult=doSomething(item);
+        fInterfaceCallback.callbackResults(itemResult);
+      </code>
+    </method>
+<method modifiers="private" return="java.lang.Object" name="doSomething">
+      
+	<param type="java.lang.Object" name="item"/>
+      <code>
+	 // TODO Write your algorithm code here ...
+	return item;
+      </code>
+    </method>
+   </role>
+
+  
+  <!-- ====================================================================== -->
+  <role name="ClientCallbackImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+    <interface type="$InterfaceCallback$"/>
+
+    <field modifiers="protected" type="ForwardInterface" name="fCallback">
+<annotation>@Reference</annotation> 
+    </field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="run">
+     
+      <code>
+	Object item;
+        fCallback.callbackAsynch(item);
+      </code>
+    </method>
+
+    <method modifiers="public" return="void" name="callbackResults">
+<param type="java.lang.Object" name="items"/>
+	<code>
+		doSomething(items);
+	</code>
+     </method>
+
+
+    <method modifiers="public" return="void" name="doSomething">
+     <param type="java.lang.Object" name="item"/>
+	<code>
+	 //TODO Write your algorithm code here ...
+	</code>
+     </method>
+  </role>
+
+</templates>

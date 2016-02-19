@@ -1,0 +1,16 @@
+@Service(Sender.class)
+public class ReceiverImpl implements Receiver {
+/** identify the dependency on Receiver's service */
+/**
+* Constructor
+*/
+public ReceiverImpl() {
+super();
+}
+public void run() {
+  long maxWaitingTime;
+  long time=Calendar.getInstance().getTimeInMillis();
+  //TODO Write your algorithm here...
+}
+}
+ 

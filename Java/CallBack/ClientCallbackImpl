@@ -1,0 +1,21 @@
+public class ClientCallbackImpl implements InterfaceCallback {
+/** This list stores references to all item instances. */
+@Reference
+protected Callback fCallback;
+/**
+* Constructor
+*/
+public ClientCallbackImpl(Callback callback) {
+super();
+}
+public void run() {
+fCallback.callbackAsynch(item);
+}
+public void callbackResults(Object items) {
+doSomething(items);
+}
+public void doSomething(Object item) {
+// TODO Write your algorithm code here ...
+}
+}
+ 

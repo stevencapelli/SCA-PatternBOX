@@ -1,0 +1,15 @@
+@Service(Callback.class)
+public class ServerImpl implements Callback {
+/** identify the dependency on Callback service */
+@Callback
+protected InterfaceCallback fInterfaceCallback;
+/**
+* Constructor
+*/
+public ServerImpl() {
+super();
+}
+public void callbackAsynch(Object item) {
+fInterfaceCallback.callbackResults(items);
+}
+}

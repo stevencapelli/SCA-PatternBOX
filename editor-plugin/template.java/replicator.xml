@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="replicator" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="Message" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+    
+ <method modifiers="public" return="void" name="sendMessage">
+      <comment>
+       This method declaration must be implemented by the Message Component.
+      </comment>
+<param type="java.lang.Object" name="item"/>
+    </method>
+
+  
+ </role>
+
+<!-- ====================================================================== -->
+  <role name="Client" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+    <method modifiers="public" return="void" name="receiver">
+      <comment>
+        This method adds the items into a list and replicates them to the clients. 
+      </comment>
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="item"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+<role name="Replicator" type="interface" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+    <method modifiers="public" return="void" name="receiver">
+      <comment>
+        This method adds the items into a list and replicates them to all clients. 
+      </comment>
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="item"/>
+    </method>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="MessageImpl" type="class" modifiers="public">
+<import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Message.class)</annotation> 
+    <interface type="$Message$"/>
+
+    <field modifiers="protected" type="$Replicator$" name="replicator">
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="sendMessage">
+      
+	<param type="java.lang.Object" name="item"/>
+      <code>
+	
+       replicator.receiver(item);
+      </code>
+    </method>
+
+   </role>
+
+  
+  <!-- ====================================================================== -->
+  <role name="ClientImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<import type="java.util.LinkedList"/>
+    <interface type="$Client$"/>
+
+    <field modifiers="private" type="Java.util.LinkedList&lt;Object&gt;" name="list" initial="new LinkedList&lt;Object&gt;()">
+    </field>
+
+<constructor modifiers="public">
+      <comment>Constructor</comment>
+       <code>
+        super();
+       </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="receiver">
+   <comment>This method receives the message</comment>     
+	<param type="java.lang.Object" name="items"/>
+		<code>
+			list.add(items);
+			doSomething();      
+		</code>
+    </method>
+
+    <method modifiers="private" return="void" name="doSomething">
+	<code>
+		Object items = list.getLast();
+		//TODO Write your algorithm code here ...
+	</code>
+     </method>
+   </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReplicatorImpl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Replicator.class)</annotation> 
+    <interface type="$Replicator$"/>
+
+    <field modifiers="protected" type="Client[]" name="client">
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="receiver">
+       <comment>This method sends message to all clients</comment>
+	<param type="java.lang.Object" name="item"/>
+      <code>
+	for (int i=0; i &lt; client.length; i++)
+	client[i].receiver(item);
+      </code>
+    </method>
+   </role>
+ 
+</templates>

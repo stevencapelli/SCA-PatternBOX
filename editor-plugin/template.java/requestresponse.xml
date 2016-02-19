@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="requestresponse" version="1.0">
+
+  <!-- ====================================================================== -->
+  <role name="Requestresponse" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+    <method modifiers="public" return="java.lang.Object" name="requestresponse">
+ 
+ <comment>
+        This method declaration must be implemented by the Server implementations.
+      </comment>
+<param type="java.lang.Object" name="item"/>
+    </method>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ServerImpl" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(Requestresponse.class)</annotation>
+    <interface type="$Requestresponse$"/>
+  
+    <constructor modifiers="public">
+      <comment>Default constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="java.lang.Object" name="requestresponse">
+      <comment>
+        This method implements the service operation declared in the RequestResponse interface.
+      </comment>
+	<param type="java.lang.Object" name="item"/>
+      <code>
+        // TODO Write your algorithm code here ...
+	return item;
+      </code>
+    </method>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ClientRequestresponseImpl" type="class" modifiers="public" >
+<import type="org.osoa.sca.annotations.*"/>
+  <annotation>@Service(Runnable.class)</annotation>
+<interface type="java.lang.Runnable"/>
+    <field modifiers="protected" type="$Requestresponse$" name="fRequestresponse">
+      <comment>the reference to a requestresponse service. </comment>
+<annotation>@Reference</annotation>  
+    </field>
+
+    <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <param type="$Requestresponse$" name="requestresponse" />
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="run">
+      <code>
+	Object item;
+        Object items = fRequestresponse.requestresponse(item);
+	// TODO Write your algorithm code here ...
+      </code>
+    </method>
+
+  </role>
+
+</templates>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="fifo"
+         name="Fifo"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOApattern. A mechanism for manipulate datas with a queue processing technique.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Sender" min="1" max="1">
+    <comment>
+      <li>defines an interface offering services to the Sender component</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Receiver" min="1" max="1">
+    <comment>
+      
+      <li>defines an interface offering services to the Receiver component</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="FifoEnqueue" min="1" max="1">
+    <comment>
+      <li>the interface through which the sender will perform the function enqueue into the fifo.</li>
+    </comment>
+
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="FifoDequeue" min="1" max="1">
+    <comment>
+      <li>the interface through which the receiver will perform the function dequeue from the fifo.</li>
+    </comment>
+  </role>
+<!-- ====================================================================== -->
+  <role name="SenderImpl" min="1" max="1">
+    <comment>
+      <li>Sender inserts elements into the fifo.</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="FifoImpl" min="1" max="1">
+    <comment>
+      <li>Fifo component manages the method enqueue adn dequeue </li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="ReceiverImpl" min="1" max="1">
+    <comment>
+      <li>Receiver pulls elements from the fifo.</li>
+    </comment>
+
+  </role>
+
+</pattern>

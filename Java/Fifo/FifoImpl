@@ -1,0 +1,19 @@
+@Service(interfaces = { FifoEnqueue.class, FifoDequeue.class })
+public class FifoImpl implements FifoEnqueue, FifoDequeue {
+private LinkedList<Object> queue;
+/**
+* Constructor
+*/
+public FifoImpl() {
+queue = new LinkedList<Object>();
+}
+public void enqueue(Object item, FifoImpl fifo) {
+fifo.queue.add(e);
+}
+public Object dequeue(FifoImpl fifo) {
+Object o;
+if (!fifo.queue.isEmpty())
+o = fifo.queue.remove();
+return o;
+}
+} 

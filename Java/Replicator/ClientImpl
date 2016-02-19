@@ -1,0 +1,20 @@
+public class Client1Impl implements Client {
+private LinkedList list = new LinkedList();
+/**
+* Constructor
+*/
+public Client1Impl() {
+super();
+}
+/**
+* This method receives the message
+*/
+public void receiver(Object items) {
+list.add(items);
+doSomething();
+}
+private void doSomething() {
+Object items = list.getLast();
+//TODO Write your algorithm code here ...
+}
+} 

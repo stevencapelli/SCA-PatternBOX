@@ -1,0 +1,14 @@
+@Service(Message.class)
+public class MessageImpl implements Message {
+@Reference
+protected Replicator replicator;
+/**
+* Constructor
+*/
+public MessageImpl() {
+super();
+}
+public void sendMessage(Object item) {
+replicator.receiver(item);
+}
+} 

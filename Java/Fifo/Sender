@@ -1,0 +1,7 @@
+public interface Sender {
+/**
+* This method must be implemented by the Sender
+component.
+*/
+public void enqueue(Object item, FifoImpl fifo);
+} 

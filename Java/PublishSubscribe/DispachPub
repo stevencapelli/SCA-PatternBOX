@@ -1,0 +1,5 @@
+public interface DispachPub{
+@OneWay
+void send(Data data, DispacherImpl dispach);
+}
+ 

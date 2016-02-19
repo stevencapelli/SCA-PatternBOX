@@ -1,0 +1,7 @@
+public interface InterfaceCallback {
+/**
+* This method creates and returns a search's results.
+*/
+public void callbackResults(Object item);
+}
+ 

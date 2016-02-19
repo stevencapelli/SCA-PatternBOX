@@ -1,0 +1,7 @@
+public interface Receiver {
+/**
+* This method must be implemented by the Receiver
+component.
+*/
+public void dequeue(FifoImpl fifo);
+} 

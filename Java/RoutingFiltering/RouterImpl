@@ -1,0 +1,14 @@
+@Service(RouterSend.class)
+public class RouterImpl implements RouterSend {
+@Reference
+protected ReceiverSend receiverSend;
+/**
+* Constructor
+*/
+public RouterImpl() {
+super();
+}
+public void send(Data data, int i) {
+receiverSend.send(data);
+}
+}

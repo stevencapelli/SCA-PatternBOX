@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="pingecho"
+         name="PingEcho"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOA pattern. The PingEcho pattern is used to determine if a Server is reachable by sending it a message (Ping) to which it will respond with another message (Echo).
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Sender" min="1" max="1">
+    <comment>
+      <li> Sender uses this interface to run the pattern</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Receiver" min="1" max="1">
+    <comment>
+      
+      <li> Receiver uses this interface to offer service.</li>
+    </comment>
+ 
+ </role>
+
+  <!-- ====================================================================== -->
+  <role name="SenderImpl" min="1" max="1">
+    <comment>
+      <li>The Sender Component sends a message (Ping) to the Receiver component</li>
+    </comment>
+ <dependence roles="Sender Receiver" />
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReceiverImpl" min="1" max="1">
+    <comment>
+      <li>The Receiver Component receives the Ping and responses with the Echo</li>
+    </comment>
+    <dependence roles="Sender Receiver"/>
+  </role>
+
+</pattern>

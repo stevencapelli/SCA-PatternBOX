@@ -1,0 +1,18 @@
+@Service(Runnable.class)
+public class ClientRequestresponseImpl implements Runnable {
+/** identify the dependency on Requestresponse service */
+@Reference
+protected Requestresponse fRequestresponse;
+/**
+* Constructor
+*/
+public ClientRequestresponseImpl(Requestresponse requestresponse) {
+super();
+}
+public void run() {
+Object item;
+Object items = fRequestresponse.requestresponse(item);
+// TODO Write your algorithm code here ...
+}
+}
+ 

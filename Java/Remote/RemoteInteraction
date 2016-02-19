@@ -1,0 +1,9 @@
+@Remotable
+public interface RemoteInteraction {
+/**
+* This method declaration must be implemented by the remote
+server component.
+*/
+public Object remoteServiceOperation(Object item);
+}
+ 

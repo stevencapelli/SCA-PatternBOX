@@ -1,0 +1,6 @@
+public interface FifoDequeue {
+/**
+* This method dequeues an object from the fifo.
+*/
+public Object dequeue(FifoImpl fifo);
+} 

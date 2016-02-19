@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="oneway"
+         name="Oneway"
+         topCategorie="SCA"
+         subCategorie="Micro Pattern">
+
+  <comment>
+   Micropattern. Define a type of interaction where the calling component uses an SCA reference proxy to send a message to another component and doesn't wait for a response.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="Oneway" min="1" max="1">
+    <comment>
+      <li>defines an interface with one way services</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="ReceiverImpl" min="1" max="1">
+    <comment>
+      <li>implements the Oneway interface.</li>
+    </comment>
+    <dependence roles="Oneway" />
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="Senderimpl" min="1" max="1">
+    <comment>
+      <li>maintains a reference to a Oneway service type.</li>
+      <li>The Sender component calls the Receiver component without waiting for a response.</li>
+    </comment>
+    <dependence roles="Oneway" />
+  </role>
+
+</pattern>

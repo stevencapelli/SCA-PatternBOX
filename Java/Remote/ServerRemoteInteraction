@@ -1,0 +1,17 @@
+@Service(RemoteInteraction.class)
+public class ServerRemoteInteraction implements RemoteInteraction {
+/**
+* Default constructor
+*/
+public ServerRemoteInteraction() {
+super();
+}
+public Object remoteServiceOperation(Object item) {
+doSomething(item);
+return item;
+}
+public void doSomething(Object item) {
+//TODO write your algorithm here..
+}
+}
+ 
