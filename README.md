@@ -1,8 +1,5 @@
 # SCA-PatternBOX
 
-SCA-PatternBOX readme
----------------------
-
 SCA-PatterBox is a design pattern editor for SCA-java service-oriented applications. 
 It is an extension of the existing Eclipse plug-in PatternBox (www.patternbox.com/).
 We extended the existing Eclipse-plugin PatternBox by modifying the grammar module "templates.dtd" within the PatternBox directory "template.java" 
