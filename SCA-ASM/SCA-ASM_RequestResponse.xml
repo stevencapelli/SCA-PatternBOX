@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="iso??8859??1" ?>
+<?xml version="1.0" encoding="iso-8859-1" ?>
 <!DOCTYPE templates SYSTEM "templates.dtd">
-<templates id="Request??Response" version="1.0">
-<role name="RequestResponseService" type="module"/>
+<templates id="Request-Response" version="1.0">
+<role name="RequestResponseService" type="module">
 <import type="STDL/StandardLibrary"/>
 <delimiter type="signature"/>
-<domain name="RequestResponseService"/> <subsetof name="Agent"/>
+<domain_name name="RequestResponseService"/> <subsetof name="Agent"/>
 <function modifier="out" name="respond">
 <domain>Agent</domain> <codomain>D</codomain>
 </function>
 </role>
-<role name="ClientRequestResponseComponent" type="module"/>
+<role name="ClientRequestResponseComponent" type="module">
 <comment> <li>//@Required interface</li> </comment>
 <import type="RequestResponseService"/>
 <comment> <li>//@Reference to the agent RequestResponseService</li></comment>
@@ -30,7 +30,7 @@ r_wsendreceive[fRequestResponse(self),"r_request(Agent,D)",items(self),result(se
 status($a) := READY </body>
 </rule>
 </role>
-<role name="ServerComponent" type="module"/>
+<role name="ServerComponent" type="module">
 <comment> <li>//@Provided interface</li> </comment>
 <import type="RequestResponseService"/>
 <comment> <li>//@Backref to the client agent</li> </comment>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT templates (role*)>
+<!ATTLIST templates
+  id        NMTOKEN   #REQUIRED
+  version   NMTOKEN   #REQUIRED
+>
+
+<!ELEMENT role (import*,delimiter?,domain_name?,subsetof?,comment*,function*,rule*)>
+
+<!ATTLIST role
+  name      ID        #REQUIRED
+  type      (module)  #REQUIRED
+>
+
+<!ELEMENT import EMPTY>
+<!ATTLIST import
+  type      CDATA   #REQUIRED
+>
+
+<!ELEMENT delimiter EMPTY>
+<!ATTLIST delimiter
+  type      CDATA   #REQUIRED
+>
+
+<!ELEMENT domain_name EMPTY>
+<!ATTLIST domain_name
+  name      CDATA   #REQUIRED
+>
+
+<!ELEMENT subsetof EMPTY>
+<!ATTLIST subsetof
+  name      CDATA   #REQUIRED
+>
+
+<!ELEMENT comment (li*)>
+<!ELEMENT li (#PCDATA)>
+
+<!ELEMENT function (domain,codomain)>
+<!ATTLIST function
+  modifier CDATA #REQUIRED
+  name CDATA #REQUIRED
+>
+
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT codomain (#PCDATA)>
+
+<!ELEMENT rule (param*,body)>
+<!ATTLIST rule
+  name      CDATA   #REQUIRED
+>
+
+<!ELEMENT param EMPTY>
+<!ATTLIST param
+  type      CDATA   #REQUIRED
+  name      CDATA   #REQUIRED
+>
+
+<!ELEMENT body (#PCDATA)>
