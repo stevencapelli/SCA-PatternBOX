@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" name="OrderSystemRefined" targetNamespace="http://eclipse.org/OrderSystem3/OrderSystemRefined">
+  <sca:component name="GUIComponent">
+    <sca:reference name="StoreService" target="OrderSystem/StoreService"/>
+    <sca:reference name="SendOrderService" target="OrderSystem/SendOrderService"/>
+    <sca:reference name="CancelOrderService" target="OrderSystem/CancelOrderService"/>
+    <sca:reference name="ProductEntryService" target="OrderSystem/ProductEntryService"/>
+  </sca:component>
+  <sca:component name="OrderSystem">
+    <sca:implementation.composite name="OrderSystem"/>
+    <sca:service name="StoreService"/>
+    <sca:service name="SendOrderService"/>
+    <sca:service name="CancelOrderService"/>
+    <sca:service name="ProductEntryService"/>
+    <sca:reference name="QueryService" target="OrderDBComponent/QueryService"/>
+    <sca:reference name="PersistenceService" target="OrderDBComponent/PersistenceService"/>
+  </sca:component>
+  <sca:component name="OrderDBComponent">
+    <sca:service name="QueryService"/>
+    <sca:service name="PersistenceService"/>
+  </sca:component>
+</sca:composite>

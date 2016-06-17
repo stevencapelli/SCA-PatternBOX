@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" name="OrderSystem" targetNamespace="http://eclipse.org/OrderSystem3/OrderSystem">
+  <sca:component name="InvoicingManagementComponent">
+    <sca:property name="orderPolicy"/>
+    <sca:reference name="Service" target="SingleOrderBComponent/InvoiceSingleService AllOrNoneBComponent/InvoiceAllOrNoneService MaxOrdersBComponent/InvoiceMaxOrdersService DefaultBComponent/InvoiceOrdersService"/>
+    <sca:reference name="QueryService"/>
+    <sca:reference name="PersistenceService"/>
+  </sca:component>
+  <sca:component name="OrderManagementComponent">
+    <sca:service name="StoreService"/>
+    <sca:service name="SendOrderService"/>
+    <sca:service name="CancelOrderService"/>
+    <sca:reference name="QueryService"/>
+    <sca:reference name="PersistenceService"/>
+  </sca:component>
+  <sca:component name="StockManagementComponent">
+    <sca:service name="ProductEntryService"/>
+    <sca:reference name="PersistenceService"/>
+  </sca:component>
+  <sca:service name="StoreService" promote="OrderManagementComponent/StoreService"/>
+  <sca:service name="SendOrderService" promote="OrderManagementComponent/SendOrderService"/>
+  <sca:service name="CancelOrderService" promote="OrderManagementComponent/CancelOrderService"/>
+  <sca:service name="ProductEntryService" promote="StockManagementComponent/ProductEntryService"/>
+  <sca:reference name="QueryService" promote="InvoicingManagementComponent/QueryService OrderManagementComponent/QueryService"/>
+  <sca:reference name="PersistenceService" promote="InvoicingManagementComponent/PersistenceService OrderManagementComponent/PersistenceService StockManagementComponent/PersistenceService"/>
+  <sca:component name="SingleOrderBComponent">
+    <sca:service name="InvoiceSingleService"/>
+  </sca:component>
+  <sca:component name="AllOrNoneBComponent">
+    <sca:service name="InvoiceAllOrNoneService"/>
+  </sca:component>
+  <sca:component name="MaxOrdersBComponent">
+    <sca:service name="InvoiceMaxOrdersService"/>
+  </sca:component>
+  <sca:component name="DefaultBComponent">
+    <sca:service name="InvoiceOrdersService"/>
+  </sca:component>
+</sca:composite>

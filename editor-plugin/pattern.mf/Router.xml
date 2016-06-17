@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="PatternRouter"
+         name="PatternRouter"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOApattern. Router pattern.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="CustomerService" min="1" max="n">
+    <comment>
+      <li>defines an interface offers by Customer to start pattern</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="RouterService" min="1" max="1">
+    <comment>
+      <li>defines an interface offering services to route towards the correct service</li>
+    </comment>
+  </role>
+<!-- ====================================================================== -->
+  <role name="Service1" min="1" max="1">
+    <comment>
+      <li>defines an interface offers by Service1</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="Service2" min="1" max="1">
+    <comment>
+      <li>defines an interface offers by Service2</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="Service3" min="1" max="1">
+    <comment>
+      <li>defines an interface offers by Service3</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Customer" min="1" max="1">
+    <comment>
+      <li>Customer component implements CustomerService</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Router" min="1" max="1">
+    <comment>
+      <li>Router component implements RouterService</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Service1Impl" min="1" max="1">
+    <comment>
+      <li>Service1Impl component implements Service1</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Service2Impl" min="1" max="1">
+    <comment>
+      <li>Service2Impl component implements Service2</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Service3Impl" min="1" max="1">
+    <comment>
+      <li>Service3Impl component implements Service3</li>
+    </comment>
+
+  </role>
+
+</pattern>

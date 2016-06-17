@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="PatternRouter" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="CustomerService" type="interface" modifiers="public">
+   
+ <method modifiers="public" return="void" name="send">
+ 
+<param type="Object" name="o"/>
+</method>
+ </role>
+
+<!-- ====================================================================== -->
+ <role name="RouterService" type="interface" modifiers="public">
+ <method modifiers="public" return="void" name="routing">
+ <annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="o"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+ <role name="Service1" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <method modifiers="public" return="void" name="executeService">
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="o"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+ <role name="Service2" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <method modifiers="public" return="void" name="executeService">
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="o"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+ <role name="Service3" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <method modifiers="public" return="void" name="executeService">
+<annotation>@OneWay</annotation> 
+<param type="java.lang.Object" name="o"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+ <role name="Customer" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(CustomerService.class)</annotation>   
+<interface type="$CustomerService$"/>
+
+<field modifiers="protected" type="$RouterService$" name="routerService">
+      <comment>
+        identify the dependency on RouterService
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="send">
+      
+	<param type="Object" name="o"/>
+	<comment>call RouteService</comment>
+      <code>
+	routerService.routing(o);
+      </code>
+    </method>
+	
+   </role>
+
+  <!-- ====================================================================== -->
+  
+  <role name="Router" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(RouterService.class)</annotation>   
+<interface type="$RouterService$"/>
+
+
+<field modifiers="protected" type="$Service1$" name="service1">
+      <comment>
+        identify the dependency on Service1
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+    <field modifiers="protected" type="$Service2$" name="service2">
+      <comment>
+        identify the dependency on Service2
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+<field modifiers="protected" type="$Service3$" name="service3">
+      <comment>
+        identify the dependency on Service3
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+<field modifiers="protected" type="$String$" name="policy">
+ <annotation>@Property</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="routing">
+      
+	<param type="Object" name="o"/>
+      <code>
+	switch(policy){
+	  case "service1":{
+		  service1.executeService(o);
+		  break;
+	  }
+	  case "service2":{
+		  service2.executeService(o);
+		  break;
+	  }
+	  case "service3":{
+		  service3.executeService(o);
+		  break;
+	  }
+	  default:
+	  }
+      </code>
+    </method>
+
+<method modifiers="publiic" return="String" name="getPolicy">
+      <code>
+	return this.policy;
+      </code>
+    </method>
+
+<method modifiers="public" return="void" name="setPolicy">
+      
+	<param type="String" name="s"/>
+      <code>
+	this.policy=s;
+      </code>
+    </method>
+
+   </role>
+   
+  <!-- ====================================================================== -->
+  
+  <role name="Service1Impl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Service(Service1.class)</annotation>   
+<interface type="$Service1$"/>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="executeService">
+      <param type="Object" name="o"/>
+      <comment>do something</comment>
+    </method>
+
+   </role>
+
+<!-- ====================================================================== -->
+  
+  <role name="Service2Impl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Service(Service2.class)</annotation>   
+<interface type="$Service2$"/>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="executeService">
+      <param type="Object" name="o"/>
+      <comment>do something</comment>
+    </method>
+
+   </role>
+
+<!-- ====================================================================== -->
+  
+  <role name="Service3Impl" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <annotation>@Service(Service3.class)</annotation>   
+<interface type="$Service3$"/>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="executeService">
+      <param type="Object" name="o"/>
+      <comment>do something</comment>
+    </method>
+
+   </role>
+</templates>

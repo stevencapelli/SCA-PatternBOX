@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" name="OrderSystem" targetNamespace="http://eclipse.org/OrderSystem/OrderSystem">
+  <sca:component name="OrderManagementComponent">
+    <sca:service name="SendOrderService"/>
+    <sca:service name="CancelOrderService"/>
+    <sca:reference/>
+  </sca:component>
+  <sca:service name="SendOrderService" promote="OrderManagementComponent/SendOrderService"/>
+  <sca:service name="CancelOrderService" promote="OrderManagementComponent/CancelOrderService"/>
+  <sca:service name="ProductEntryService" promote="StockManagementComponent/ProductEntryService"/>
+  <sca:component name="StockManagementComponent">
+    <sca:service name="ProductEntryService"/>
+    <sca:reference/>
+  </sca:component>
+  <sca:component name="InvoicingManagementComponent">
+    <sca:reference/>
+  </sca:component>
+</sca:composite>

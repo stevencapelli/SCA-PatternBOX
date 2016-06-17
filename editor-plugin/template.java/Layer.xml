@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE templates SYSTEM "templates.dtd">
+
+<!-- Copyright (C) 2003-2012 by Dirk Ehms, www.patternbox.com. All rights reserved. -->
+
+<templates id="PatternLayer" version="1.1">
+
+  <!-- ====================================================================== -->
+  <role name="ApplicationService" type="interface" modifiers="public">
+   
+ <method modifiers="public" return="Object" name="GUIcommand">
+ 
+<param type="Object" name="o"/>
+</method>
+ </role>
+
+<!-- ====================================================================== -->
+ <role name="QueryService" type="interface" modifiers="public">
+ <method modifiers="public" return="Object" name="executeQuery">
+ 
+<param type="java.lang.Object" name="query"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+ <role name="PersistenceService" type="interface" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+ <method modifiers="public" return="boolean" name="updateData">
+<param type="java.lang.Object" name="update"/>
+</method>
+
+</role>
+
+<!-- ====================================================================== -->
+
+ <role name="Data" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(interfaces={QueryService.class, PersistenceService.class})</annotation>   
+<interface type="$QueryService$"/>
+ <interface type="$PersistenceService$"/>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="Object" name="executeQuery">
+      
+	<param type="Object" name="query"/>
+	<comment>insert code to query data</comment>
+      <code>
+	return "";
+      </code>
+    </method>
+	
+	<method modifiers="public" return="boolean" name="updateData">
+      
+	<param type="Object" name="update"/>
+	<comment>insert code to update data</comment>
+      <code>
+	return true;
+      </code>
+    </method>
+   </role>
+
+  <!-- ====================================================================== -->
+  
+  <role name="Application" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+<annotation>@Service(ApplicationService.class)</annotation>   
+<interface type="$ApplicationService$"/>
+
+
+<field modifiers="protected" type="$QueryService$" name="queryService">
+      <comment>
+        identify the dependency on Query service
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+    <field modifiers="protected" type="$PersistenceService$" name="persistenceService">
+      <comment>
+        identify the dependency on Persistence service
+      </comment>
+ <annotation>@Reference</annotation>  
+    </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="Object" name="GIUcommand">
+      
+	<param type="Object" name="o"/>
+      <code>
+	o=doSomething();
+       return storeData(o);
+      </code>
+    </method>
+
+<method modifiers="private" return="Object" name="doSomething">
+      
+	<param type="Object" name="o"/>
+        <comment>doSomething</comment>
+      <code>
+	return "";
+      </code>
+    </method>
+
+<method modifiers="private" return="boolean" name="storeData">
+      
+	<param type="Object" name="o"/>
+        <comment>store data</comment>
+      <code>
+	persistenceService.updateData(o);
+        return true;
+      </code>
+    </method>
+
+<method modifiers="private" return="Object" name="queryData">
+      
+	<param type="Object" name="o"/>
+        <comment>query data</comment>
+      <code>
+	 return queryService.executeQuery(o);
+      </code>
+    </method>
+   </role>
+   
+  <!-- ====================================================================== -->
+  
+  <role name="GUI" type="class" modifiers="public">
+ <import type="org.osoa.sca.annotations.*"/>
+
+    <field modifiers="protected" type="$AplicationService$" name="applicationService">
+     <annotation>@Reference</annotation>  
+ </field>
+
+   <constructor modifiers="public">
+      <comment>Constructor</comment>
+      <code>
+        super();
+      </code>
+    </constructor>
+
+    <method modifiers="public" return="void" name="sendCommand">
+      <code>
+	applicationService.GUIcommand(o);
+        doSomething();
+      </code>
+    </method>
+	
+	<method modifiers="private" return="void" name="doSomething">
+      
+	<comment>doSomething</comment>
+    </method>
+   </role>
+</templates>

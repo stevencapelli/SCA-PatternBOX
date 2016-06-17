@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE pattern SYSTEM "manifest.dtd">
+<pattern id="PatternLayer"
+         name="PatternLayer"
+         topCategorie="SCA"
+         subCategorie="SOA Pattern">
+
+  <comment>
+   SOApattern. three-layer architectural pattern.
+  </comment>
+
+  <!-- ====================================================================== -->
+  <role name="ApplicationService" min="1" max="n">
+    <comment>
+      <li>defines an interface offering services to send command</li>
+    </comment>
+  </role>
+
+  <!-- ====================================================================== -->
+  <role name="PersistenceService" min="1" max="1">
+    <comment>
+      <li>defines an interface offering services to update data</li>
+    </comment>
+  </role>
+<!-- ====================================================================== -->
+  <role name="QueryService" min="1" max="1">
+    <comment>
+      <li>defines an interface offering services to get data</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="Application" min="1" max="1">
+    <comment>
+      <li>Application component takes arriving command</li>
+    </comment>
+
+  </role>
+<!-- ====================================================================== -->
+  <role name="GUI" min="1" max="1">
+    <comment>
+      <li>GUI componennt send command to application component</li>
+    </comment>
+
+  </role>
+
+<!-- ====================================================================== -->
+  <role name="Data" min="1" max="1">
+    <comment>
+      <li>Data component manages data</li>
+    </comment>
+
+  </role>
+
+</pattern>
